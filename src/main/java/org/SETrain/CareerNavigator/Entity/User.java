@@ -133,14 +133,23 @@ public class User {
     @Override
     public boolean equals(Object o) {
 
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(nickname, user.nickname) && Objects.equals(sex, user.sex) && Objects.equals(age, user.age) && Objects.equals(education, user.education) && Objects.equals(major, user.major) && Objects.equals(tel, user.tel) && Objects.equals(email, user.email) && Objects.equals(expectedjob, user.expectedjob) && Objects.equals(graduationtime, user.graduationtime) && Objects.equals(registertime, user.registertime);
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username)
+                && Objects.equals(nickname, user.nickname) && Objects.equals(sex, user.sex)
+                && Objects.equals(age, user.age) && Objects.equals(education, user.education)
+                && Objects.equals(major, user.major) && Objects.equals(tel, user.tel)
+                && Objects.equals(email, user.email) && Objects.equals(expectedjob, user.expectedjob)
+                && Objects.equals(graduationtime, user.graduationtime)
+                && Objects.equals(registertime, user.registertime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, nickname, sex, age, education, major, tel, email, expectedjob, graduationtime, registertime);
+        return Objects.hash(id, username, nickname, sex, age, education, major, tel, email, expectedjob, graduationtime,
+                registertime);
     }
 }

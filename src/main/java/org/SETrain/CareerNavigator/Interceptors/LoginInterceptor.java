@@ -16,27 +16,29 @@ import java.util.Map;
 public class LoginInterceptor implements HandlerInterceptor {
     @Autowired
     private StringRedisTemplate redisTemplate;
+
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token= request.getHeader("Authorization");
-        try{
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        String token = request.getHeader("Authorization");
+        try {
             ValueOperations<String, String> stringStringValueOperations = redisTemplate.opsForValue();
-           String redisToken= stringStringValueOperations.get(token);
-        if(redisToken==null){
-            throw new RuntimeException();
-        }
-            Map<String,Object> claims= JwtUtil.parseToken(token);
+            String redisToken = stringStringValueOperations.get(token);
+            if (redisToken == null) {
+                throw new RuntimeException();
+            }
+            Map<String, Object> claims = JwtUtil.parseToken(token);
             ThreadLocalUtil.set(claims);
-       return true;
-        }
-        catch (Exception e){
+            return true;
+        } catch (Exception e) {
             response.setStatus(401);
-            return  false;
+            return false;
         }
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-         ThreadLocalUtil.remove();
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+        ThreadLocalUtil.remove();
     }
 }

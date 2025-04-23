@@ -13,12 +13,26 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findByUsername(String username) {
-     return   accountMapper.findByUsername(username);
+        return accountMapper.findByUsername(username);
     }
 
     @Override
     public void register(String username, String password, Integer type) {
-        accountMapper.register(username,password,type);
+        accountMapper.register(username, password, type);
+    }
 
+    @Override
+    public void updatePassword(String username, String newPassword) {
+        accountMapper.updatePassword(username, newPassword);
+    }
+
+    @Override
+    public void updateUsername(String oldUsername, String newUsername) {
+        accountMapper.updateUsername(oldUsername, newUsername);
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        return accountMapper.checkUsername(username) > 0;
     }
 }

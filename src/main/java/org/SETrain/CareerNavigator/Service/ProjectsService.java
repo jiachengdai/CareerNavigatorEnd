@@ -4,7 +4,7 @@ import org.SETrain.CareerNavigator.Entity.Projects;
 import java.util.List;
 
 public interface ProjectsService {
-  List<Projects> getProjectsByUserId(Integer userId);
+  List<Projects> getProjectsByResumeId(Integer resumeId);
 
   void insertProject(Projects project);
 

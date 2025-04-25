@@ -3,7 +3,7 @@ package org.SETrain.CareerNavigator.Service;
 import org.SETrain.CareerNavigator.Entity.Personalinfo;
 
 public interface PersonalinfoService {
-  Personalinfo getPersonalInfoByUserId(Integer userId);
+  Personalinfo getPersonalInfoByResumeId(Integer resumeId);
 
   void insertPersonalInfo(Personalinfo personalinfo);
 

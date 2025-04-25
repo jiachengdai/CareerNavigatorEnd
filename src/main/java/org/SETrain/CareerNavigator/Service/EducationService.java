@@ -4,7 +4,7 @@ import org.SETrain.CareerNavigator.Entity.Education;
 import java.util.List;
 
 public interface EducationService {
-  List<Education> getEducationByUserId(Integer userId);
+  List<Education> getEducationByResumeId(Integer resumeId);
 
   void insertEducation(Education education);
 

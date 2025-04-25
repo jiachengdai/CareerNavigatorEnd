@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface UserProfileService {
         // 获取用户画像数据
-        Map<String, Object> getUserProfile(Integer userId);
+        Map<String, Object> getUserProfile(String username);
 
         // 提取关键词
         List<String> extractKeywords(Personalinfo personalInfo, List<Education> educationList,

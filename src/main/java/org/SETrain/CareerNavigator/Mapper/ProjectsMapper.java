@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface ProjectsMapper {
-  @Select("SELECT * FROM projects WHERE id = #{userId}")
-  List<Projects> getProjectsByUserId(Integer userId);
+  @Select("SELECT * FROM projects WHERE resumeid = #{resumeid}")
+  List<Projects> getProjectsByResumeId(Integer resumeid);
 
   @Insert("INSERT INTO projects(id, projectName, role, startDate, endDate, description, briefIntroduction, resumeid) " +
       "VALUES(#{id}, #{projectName}, #{role}, #{startDate}, #{endDate}, #{description}, #{briefIntroduction}, #{resumeid})")

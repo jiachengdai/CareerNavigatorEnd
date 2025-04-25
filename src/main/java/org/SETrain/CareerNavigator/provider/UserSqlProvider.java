@@ -5,7 +5,7 @@ import org.SETrain.CareerNavigator.Entity.User;
 public class UserSqlProvider {
     public String buildUpdateSql(User user) {
         StringBuilder sql = new StringBuilder();
-        System.out.println("User数据"+user);
+        System.out.println("User数据" + user);
         sql.append("UPDATE user SET ");
 
         if (user.getUsername() != null && !user.getUsername().isEmpty()) {
@@ -34,6 +34,12 @@ public class UserSqlProvider {
         }
         if (user.getExpectedjob() != null && !user.getExpectedjob().isEmpty()) {
             sql.append("expectedjob = #{expectedjob}, ");
+        }
+        if (user.getGraduationtime() != null && !user.getGraduationtime().isEmpty()) {
+            sql.append("graduationtime = #{graduationtime}, ");
+        }
+        if (user.getRegistertime() != null && !user.getRegistertime().isEmpty()) {
+            sql.append("registertime = #{registertime}, ");
         }
 
         // 删除最后一个多余的逗号

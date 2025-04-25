@@ -15,8 +15,8 @@ public class ProjectsServiceImpl implements ProjectsService {
   private ProjectsMapper projectsMapper;
 
   @Override
-  public List<Projects> getProjectsByUserId(Integer userId) {
-    return projectsMapper.getProjectsByUserId(userId);
+  public List<Projects> getProjectsByResumeId(Integer resumeId) {
+    return projectsMapper.getProjectsByResumeId(resumeId);
   }
 
   @Override

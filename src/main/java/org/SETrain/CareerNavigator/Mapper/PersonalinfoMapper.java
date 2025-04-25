@@ -5,8 +5,8 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface PersonalinfoMapper {
-  @Select("SELECT * FROM personalinfo WHERE id = #{userId}")
-  Personalinfo getPersonalInfoByUserId(Integer userId);
+  @Select("SELECT * FROM personalinfo WHERE resumeid = #{resumeid}")
+  Personalinfo getPersonalInfoByResumeId(Integer resumeid);
 
   @Insert("INSERT INTO personalinfo(name, gender, phone, email, university, politicalStatus, website, avatar, major, age, applicationPosition, resumeid) "
       +

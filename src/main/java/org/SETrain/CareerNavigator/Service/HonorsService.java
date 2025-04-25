@@ -4,7 +4,7 @@ import org.SETrain.CareerNavigator.Entity.Honors;
 import java.util.List;
 
 public interface HonorsService {
-  List<Honors> getHonorsByUserId(Integer userId);
+  List<Honors> getHonorsByResumeId(Integer resumeId);
 
   void insertHonor(Honors honor);
 

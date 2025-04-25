@@ -15,8 +15,8 @@ public class HonorsServiceImpl implements HonorsService {
   private HonorsMapper honorsMapper;
 
   @Override
-  public List<Honors> getHonorsByUserId(Integer userId) {
-    return honorsMapper.getHonorsByUserId(userId);
+  public List<Honors> getHonorsByResumeId(Integer resumeId) {
+    return honorsMapper.getHonorsByResumeId(resumeId);
   }
 
   @Override

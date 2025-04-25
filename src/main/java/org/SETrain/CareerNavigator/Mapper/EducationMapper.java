@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface EducationMapper {
-  @Select("SELECT * FROM education WHERE id = #{userId}")
-  List<Education> getEducationByUserId(Integer userId);
+  @Select("SELECT * FROM education WHERE resumeid = #{resumeid}")
+  List<Education> getEducationByResumeId(Integer resumeid);
 
   @Insert("INSERT INTO education(id, school, degree, major, startDate, endDate, resumeid) " +
       "VALUES(#{id}, #{school}, #{degree}, #{major}, #{startDate}, #{endDate}, #{resumeid})")

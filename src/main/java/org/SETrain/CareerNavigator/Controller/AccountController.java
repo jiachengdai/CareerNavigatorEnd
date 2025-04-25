@@ -107,7 +107,7 @@ public class AccountController {
             @ApiResponse(responseCode = "200", description = "修改成功"),
             @ApiResponse(responseCode = "400", description = "原密码错误或用户不存在")
     })
-    @PostMapping("/change-password")
+    @PostMapping("/changepassword")
     public Result changePassword(
             @Parameter(description = "用户名") @RequestParam String username,
             @Parameter(description = "原密码") @RequestParam String oldPassword,
@@ -124,44 +124,6 @@ public class AccountController {
 
         String MD5newPassword = Md5Util.getMD5String(newPassword);
         accountService.updatePassword(username, MD5newPassword);
-        return Result.success();
-    }
-
-    @Operation(summary = "修改用户名")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "修改成功"),
-            @ApiResponse(responseCode = "400", description = "新用户名已存在或用户不存在")
-    })
-    @PostMapping("/change-username")
-    public Result changeUsername(
-            @Parameter(description = "旧用户名") @RequestParam String oldUsername,
-            @Parameter(description = "新用户名") @RequestParam String newUsername,
-            @Parameter(description = "密码") @RequestParam String password) {
-        Account account = accountService.findByUsername(oldUsername);
-        if (account == null) {
-            return Result.error("用户不存在");
-        }
-
-        if (accountService.checkUsername(newUsername)) {
-            return Result.error("新用户名已存在");
-        }
-
-        accountService.updateUsername(oldUsername, newUsername);
-        // userService.updateUsername(oldUsername, newUsername);
-
-        return Result.success();
-    }
-
-    @Operation(summary = "用户登出")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "登出成功")
-    })
-    @PostMapping("/logout")
-    public Result logout(@Parameter(description = "认证token") @RequestHeader("Authorization") String token) {
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-            stringRedisTemplate.delete(token);
-        }
         return Result.success();
     }
 
@@ -193,6 +155,19 @@ public class AccountController {
         accountService.updateUsername(oldUsername, newUsername);
         // userService.updateUsername(oldUsername, newUsername);
 
+        return Result.success();
+    }
+
+    @Operation(summary = "用户登出")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "登出成功")
+    })
+    @PostMapping("/logout")
+    public Result logout(@Parameter(description = "认证token") @RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            stringRedisTemplate.delete(token);
+        }
         return Result.success();
     }
 }

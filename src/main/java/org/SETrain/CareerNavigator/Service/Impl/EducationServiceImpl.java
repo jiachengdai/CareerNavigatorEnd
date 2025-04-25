@@ -15,8 +15,8 @@ public class EducationServiceImpl implements EducationService {
   private EducationMapper educationMapper;
 
   @Override
-  public List<Education> getEducationByUserId(Integer userId) {
-    return educationMapper.getEducationByUserId(userId);
+  public List<Education> getEducationByResumeId(Integer resumeId) {
+    return educationMapper.getEducationByResumeId(resumeId);
   }
 
   @Override

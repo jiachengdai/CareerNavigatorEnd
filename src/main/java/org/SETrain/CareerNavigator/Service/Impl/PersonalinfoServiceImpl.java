@@ -13,8 +13,8 @@ public class PersonalinfoServiceImpl implements PersonalinfoService {
   private PersonalinfoMapper personalinfoMapper;
 
   @Override
-  public Personalinfo getPersonalInfoByUserId(Integer userId) {
-    return personalinfoMapper.getPersonalInfoByUserId(userId);
+  public Personalinfo getPersonalInfoByResumeId(Integer resumeId) {
+    return personalinfoMapper.getPersonalInfoByResumeId(resumeId);
   }
 
   @Override

@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 public class UserProfileServiceImpl implements UserProfileService {
 
   @Autowired
+  private ResumeService resumeService;
+
+  @Autowired
   private PersonalinfoService personalinfoService;
 
   @Autowired
@@ -23,36 +26,47 @@ public class UserProfileServiceImpl implements UserProfileService {
   private ProjectsService projectsService;
 
   @Autowired
+  private SkillsService skillsService;
+
+  @Autowired
   private HonorsService honorsService;
 
   @Override
-  @Cacheable(value = "userProfile", key = "#userId")
-  public Map<String, Object> getUserProfile(Integer userId) {
-    if (userId == null) {
-      throw new IllegalArgumentException("用户ID不能为空");
+  @Cacheable(value = "userProfile", key = "#username")
+  public Map<String, Object> getUserProfile(String username) {
+    if (username == null) {
+      throw new IllegalArgumentException("用户名不能为空");
+    }
+
+    // 1. 获取用户最新的简历ID
+    Integer resumeId = resumeService.getLatestResumeIdByUsername(username);
+    if (resumeId == null) {
+      throw new RuntimeException("用户没有简历信息");
     }
 
     Map<String, Object> profile = new HashMap<>();
 
     try {
+      // 2. 使用简历ID获取相关信息
       // 获取个人信息
-      Personalinfo personalInfo = personalinfoService.getPersonalInfoByUserId(userId);
-      if (personalInfo == null) {
-        throw new RuntimeException("未找到用户个人信息");
-      }
+      Personalinfo personalInfo = personalinfoService.getPersonalInfoByResumeId(resumeId);
       profile.put("personalInfo", personalInfo);
 
       // 获取教育经历
-      List<Education> educationList = educationService.getEducationByUserId(userId);
-      profile.put("educationList", educationList != null ? educationList : new ArrayList<>());
+      List<Education> educationList = educationService.getEducationByResumeId(resumeId);
+      profile.put("educationList", educationList);
 
       // 获取项目经历
-      List<Projects> projectList = projectsService.getProjectsByUserId(userId);
-      profile.put("projectList", projectList != null ? projectList : new ArrayList<>());
+      List<Projects> projectList = projectsService.getProjectsByResumeId(resumeId);
+      profile.put("projectList", projectList);
+
+      // 获取技能
+      List<Skills> skillsList = skillsService.getSkillsByResumeId(resumeId);
+      profile.put("skillsList", skillsList);
 
       // 获取荣誉
-      List<Honors> honorList = honorsService.getHonorsByUserId(userId);
-      profile.put("honorList", honorList != null ? honorList : new ArrayList<>());
+      List<Honors> honorList = honorsService.getHonorsByResumeId(resumeId);
+      profile.put("honorList", honorList);
 
       // 提取关键词
       List<String> keywords = extractKeywords(personalInfo, educationList, projectList, honorList);

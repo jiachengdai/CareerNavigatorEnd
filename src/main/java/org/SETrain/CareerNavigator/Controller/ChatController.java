@@ -1,6 +1,7 @@
 package org.SETrain.CareerNavigator.Controller;
 
 import com.google.protobuf.Message;
+import org.SETrain.CareerNavigator.DTO.InterviewMsgRecord;
 import org.SETrain.CareerNavigator.Entity.Result;
 import org.SETrain.CareerNavigator.Service.ChatService;
 import org.SETrain.CareerNavigator.Util.WebTtsWs;
@@ -66,7 +67,10 @@ public class ChatController {
                 });
     }
     @PostMapping("/record")
-    public Result recordChat(@RequestParam String msg,Integer interviewid,String role) {
+    public Result recordChat(@RequestBody InterviewMsgRecord interviewMsgRecord) {
+         String msg = interviewMsgRecord.getMsg();
+        Integer interviewid = interviewMsgRecord.getInterviewid();
+        String role = interviewMsgRecord.getRole();
         chatService.recordChat(msg,interviewid,role);
         return Result.success();
     }

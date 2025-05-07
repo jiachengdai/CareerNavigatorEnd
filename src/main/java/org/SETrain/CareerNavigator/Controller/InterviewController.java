@@ -30,16 +30,29 @@ public class InterviewController {
     @PostMapping("/new")
     public Result newInterview(@RequestBody Interview interview){
         interviewService.newInterview(interview);
+        String interviewType= interview.getInterviewtype();
+        String interviewPrompt="";
+        if (interviewType.equals("基本素养面试")){
+            interviewPrompt= InterviewPrompts.basicInterview;}
+        else if (interviewType.equals("算法面试")){
+            interviewPrompt= InterviewPrompts.codingInterview;
+        }
+        else if (interviewType.equals("项目面试")){
+            interviewPrompt= InterviewPrompts.projectInterview;
+        }
+        else if (interviewType.equals("业务场景面试")){
+            interviewPrompt= InterviewPrompts.sceneInterview;
+        }
 
         String sysSet=  String.format(
-                InterviewPrompts.newInterviewPrompt
-                        .replace("{jobname}", "%s")
-                        .replace("{interviewtype}", "%s")
+                interviewPrompt
                         .replace("{intensity}", "%s")
+                        .replace("{jobname}", "%s")
                         .replace("{jobdescription}", "%s")
                         .replace("{resumecontent}", "%s"),
-                interview.getJobname(), interview.getInterviewtype(), interview.getIntensity(), interview.getJobdescription(), interview.getResumecontent()
+          interview.getIntensity(),     interview.getJobname(),  interview.getJobdescription(), interview.getResumecontent()
         );
+        System.out.println(sysSet);
         ChatController.setSystemPrompt(sysSet);
 
          return Result.success(interview.getId());
@@ -80,7 +93,7 @@ public class InterviewController {
         return Result.success(chat);
     }
      @GetMapping ("/getInterviewAssignment")
-     public Result getInterviewAssignment(Integer interviewid){
+     public Result getInterviewAssignment(@RequestParam Integer interviewid){
          List<Chat> chats=interviewService.getInterviewChat(interviewid);
          StringBuilder chatRecord= new StringBuilder();
          for (Chat chat:chats){

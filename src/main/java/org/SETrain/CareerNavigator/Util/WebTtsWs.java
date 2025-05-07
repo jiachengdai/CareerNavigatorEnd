@@ -36,7 +36,7 @@ public class WebTtsWs {
     // 合成文本编码格式
     public static final String TTE = "UTF8"; // 小语种必须使用UNICODE编码作为值
     // 发音人参数。到控制台-我的应用-语音合成-添加试用或购买发音人，添加后即显示该发音人参数值，若试用未添加的发音人会报错11200
-    public static final String VCN = "x4_lingbosong";
+    public static final String VCN = "x4_xiaogu";
     // 合成文件存储地址以及名称
     public static final String OUTPUT_FILE_PATH = "src/main/resources/static/" + System.currentTimeMillis() + ".mp3";
     // json

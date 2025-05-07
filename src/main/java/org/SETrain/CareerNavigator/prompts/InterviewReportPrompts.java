@@ -5,8 +5,8 @@ public class InterviewReportPrompts {
     public static String getPreScore="请针对这段面试对话，对面试者的表达能力进行打分，满分100分，只返回一个分数就可以，不要返回其他内容，下面是面试对话记录，其中user是被面试者,assistant是面试官。";
 
 
-    public static String getAdvice="请针对这段面试对话，给出一些面试能力提升建议，只给出分点的建议即可，不要输出多余的内容，不要markdown格式，其中user是被面试者,assistant是面试官。";
-    public static String getSkillsSummary="请针对这段面试对话，给出技术掌握情况分析，分点列项，不要输出多余的内容，不要markdown格式，其中user是被面试者,assistant是面试官。";
+    public static String getAdvice="请针对这段面试对话，给出一些面试能力提升建议，只给出以符号'•'分点的建议即可，不要输出多余的内容，不要markdown格式，其中user是被面试者,assistant是面试官。";
+    public static String getSkillsSummary="请针对这段面试对话，给出技术掌握情况分析，以符号'•'分点列项，不要输出多余的内容，不要markdown格式，其中user是被面试者,assistant是面试官。";
     public static String getChangeScore="请针对这段面试对话，对面试者的应变能力进行打分，满分100分，只返回一个分数就可以，不要返回其他内容，下面是面试对话记录，其中user是被面试者,assistant是面试官。";
     public static String getLogicScore="请针对这段面试对话，对面试者的逻辑沟通能力进行打分，满分100分，只返回一个分数就可以，不要返回其他内容，下面是面试对话记录，其中user是被面试者,assistant是面试官。";
 }

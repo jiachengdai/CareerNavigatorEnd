@@ -137,7 +137,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public List<String> extractKeywords(Personalinfo personalInfo, List<Education> educationList,
-      List<Projects> projectList, List<Honors> honorList) {
+                                      List<Projects> projectList, List<Honors> honorList) {
     if (personalInfo == null) {
       throw new IllegalArgumentException("个人信息不能为空");
     }
@@ -202,7 +202,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public String generateSummary(Personalinfo personalInfo, List<Education> educationList,
-      List<Projects> projectList, List<Honors> honorList) {
+                                List<Projects> projectList, List<Honors> honorList) {
     if (personalInfo == null) {
       throw new IllegalArgumentException("个人信息不能为空");
     }
@@ -228,9 +228,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     if (educationList != null && !educationList.isEmpty()) {
       summary.append("教育背景：");
       String educationStr = educationList.stream()
-          .filter(edu -> StringUtils.hasText(edu.getSchool()) && StringUtils.hasText(edu.getDegree()))
-          .map(edu -> edu.getSchool() + "(" + edu.getDegree() + ")")
-          .collect(Collectors.joining("、"));
+              .filter(edu -> StringUtils.hasText(edu.getSchool()) && StringUtils.hasText(edu.getDegree()))
+              .map(edu -> edu.getSchool() + "(" + edu.getDegree() + ")")
+              .collect(Collectors.joining("、"));
       if (!educationStr.isEmpty()) {
         summary.append(educationStr).append("。");
       }
@@ -240,9 +240,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     if (projectList != null && !projectList.isEmpty()) {
       summary.append("项目经验：");
       String projectStr = projectList.stream()
-          .filter(project -> StringUtils.hasText(project.getProjectName()) && StringUtils.hasText(project.getRole()))
-          .map(project -> project.getProjectName() + "(" + project.getRole() + ")")
-          .collect(Collectors.joining("、"));
+              .filter(project -> StringUtils.hasText(project.getProjectName()) && StringUtils.hasText(project.getRole()))
+              .map(project -> project.getProjectName() + "(" + project.getRole() + ")")
+              .collect(Collectors.joining("、"));
       if (!projectStr.isEmpty()) {
         summary.append(projectStr).append("。");
       }
@@ -301,9 +301,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     if (projectList != null) {
       Map<String, Integer> interestCount = new HashMap<>();
       String[] techKeywords = {
-          "java", "python", "web", "mobile", "data", "cloud", "ai",
-          "前端", "后端", "全栈", "大数据", "人工智能", "机器学习",
-          "区块链", "物联网", "安全", "测试", "运维"
+              "java", "python", "web", "mobile", "data", "cloud", "ai",
+              "前端", "后端", "全栈", "大数据", "人工智能", "机器学习",
+              "区块链", "物联网", "安全", "测试", "运维"
       };
 
       for (Projects project : projectList) {
@@ -325,15 +325,15 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, Double> assessCompetency(List<Projects> projectList, List<Education> educationList,
-      List<Honors> honorList) {
+                                              List<Honors> honorList) {
     Map<String, Double> competency = new HashMap<>();
 
     if (projectList != null) {
       Map<String, Integer> skillCount = new HashMap<>();
       String[] skills = {
-          "java", "python", "spring", "database", "frontend", "backend",
-          "算法", "数据结构", "设计模式", "微服务", "分布式", "高并发",
-          "性能优化", "安全", "测试", "运维", "项目管理"
+              "java", "python", "spring", "database", "frontend", "backend",
+              "算法", "数据结构", "设计模式", "微服务", "分布式", "高并发",
+              "性能优化", "安全", "测试", "运维", "项目管理"
       };
 
       for (Projects project : projectList) {
@@ -355,7 +355,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public List<String> generateCareerRecommendations(Map<String, Double> careerInterests,
-      Map<String, Double> competencyAssessment) {
+                                                    Map<String, Double> competencyAssessment) {
     List<String> recommendations = new ArrayList<>();
 
     if (careerInterests != null && competencyAssessment != null) {
@@ -368,11 +368,11 @@ public class UserProfileServiceImpl implements UserProfileService {
       }
 
       scores.entrySet().stream()
-          .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-          .limit(3)
-          .forEach(entry -> {
-            recommendations.add(entry.getKey() + "开发工程师");
-          });
+              .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+              .limit(3)
+              .forEach(entry -> {
+                recommendations.add(entry.getKey() + "开发工程师");
+              });
     }
 
     return recommendations;
@@ -380,7 +380,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, List<String>> analyzeSkillGaps(Map<String, Double> competencyAssessment,
-      List<String> targetPositions) {
+                                                    List<String> targetPositions) {
     Map<String, List<String>> gaps = new HashMap<>();
 
     if (targetPositions != null && competencyAssessment != null) {
@@ -403,14 +403,14 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, Double> assessMarketValue(Map<String, Double> competencyAssessment,
-      List<Projects> projectList) {
+                                               List<Projects> projectList) {
     Map<String, Double> marketValue = new HashMap<>();
 
     if (competencyAssessment != null) {
       double totalScore = competencyAssessment.values().stream()
-          .mapToDouble(Double::doubleValue)
-          .average()
-          .orElse(0.0);
+              .mapToDouble(Double::doubleValue)
+              .average()
+              .orElse(0.0);
 
       if (projectList != null) {
         double projectScore = projectList.size() * 0.1;
@@ -427,23 +427,23 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public List<String> generateDevelopmentSuggestions(Map<String, List<String>> skillGaps,
-      Map<String, Double> marketValue) {
+                                                     Map<String, Double> marketValue) {
     List<String> suggestions = new ArrayList<>();
 
     if (skillGaps != null) {
       for (Map.Entry<String, List<String>> entry : skillGaps.entrySet()) {
         if (!entry.getValue().isEmpty()) {
           suggestions.add("建议提升" + entry.getKey() + "方向所需的技能：" +
-              String.join("、", entry.getValue()));
+                  String.join("、", entry.getValue()));
         }
       }
     }
 
     if (marketValue != null) {
       double maxValue = marketValue.values().stream()
-          .mapToDouble(Double::doubleValue)
-          .max()
-          .orElse(0.0);
+              .mapToDouble(Double::doubleValue)
+              .max()
+              .orElse(0.0);
 
       if (maxValue < 0.6) {
         suggestions.add("建议通过参与更多项目来提升市场竞争力");
@@ -455,7 +455,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, Double> analyzeIndustryTrends(List<Projects> projectList,
-      List<Education> educationList) {
+                                                   List<Education> educationList) {
     Map<String, Double> trends = new HashMap<>();
 
     String[] techTrends = { "ai", "cloud", "bigdata", "blockchain", "iot" };
@@ -464,7 +464,7 @@ public class UserProfileServiceImpl implements UserProfileService {
       if (projectList != null) {
         for (Projects project : projectList) {
           if (project.getDescription() != null &&
-              project.getDescription().toLowerCase().contains(trend)) {
+                  project.getDescription().toLowerCase().contains(trend)) {
             count++;
           }
         }
@@ -477,7 +477,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, List<String>> planLearningPath(Map<String, List<String>> skillGaps,
-      Map<String, Double> industryTrends) {
+                                                    Map<String, Double> industryTrends) {
     Map<String, List<String>> learningPath = new HashMap<>();
 
     if (skillGaps != null) {
@@ -501,20 +501,20 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, Double> analyzeSalaryExpectation(Map<String, Double> competencyAssessment,
-      Map<String, Double> marketValue) {
+                                                      Map<String, Double> marketValue) {
     Map<String, Double> salaryExpectation = new HashMap<>();
 
     if (competencyAssessment != null && marketValue != null) {
       double baseSalary = 10000.0;
       double competencyScore = competencyAssessment.values().stream()
-          .mapToDouble(Double::doubleValue)
-          .average()
-          .orElse(0.0);
+              .mapToDouble(Double::doubleValue)
+              .average()
+              .orElse(0.0);
 
       double marketScore = marketValue.values().stream()
-          .mapToDouble(Double::doubleValue)
-          .max()
-          .orElse(0.0);
+              .mapToDouble(Double::doubleValue)
+              .max()
+              .orElse(0.0);
 
       salaryExpectation.put("初级", baseSalary * (1 + competencyScore * 0.5));
       salaryExpectation.put("中级", baseSalary * (1 + competencyScore * 0.8));
@@ -526,7 +526,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, List<String>> analyzeCareerGoals(Map<String, Double> careerInterests,
-      Map<String, Double> competencyAssessment) {
+                                                      Map<String, Double> competencyAssessment) {
     Map<String, List<String>> goals = new HashMap<>();
 
     if (careerInterests != null && competencyAssessment != null) {
@@ -579,7 +579,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public Map<String, List<String>> generateNetworkingSuggestions(Map<String, Double> careerInterests,
-      Map<String, Double> industryTrends) {
+                                                                 Map<String, Double> industryTrends) {
     Map<String, List<String>> suggestions = new HashMap<>();
 
     if (careerInterests != null) {

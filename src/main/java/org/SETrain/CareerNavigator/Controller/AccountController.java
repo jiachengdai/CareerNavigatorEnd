@@ -30,17 +30,10 @@ import java.util.concurrent.TimeUnit;
 public class AccountController {
     @Autowired
     private AccountService accountService;
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Operation(summary = "用户注册")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "注册成功"),
-            @ApiResponse(responseCode = "400", description = "用户名已存在")
-    })
     @PostMapping("/register")
     public Result register(
             @Parameter(description = "用户名") @RequestParam String username,
@@ -55,11 +48,6 @@ public class AccountController {
         return Result.success();
     }
 
-    @Operation(summary = "用户登录")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "登录成功"),
-            @ApiResponse(responseCode = "400", description = "用户不存在或密码错误")
-    })
     @PostMapping("/login")
     public Result login(
             @Parameter(description = "用户名") @RequestParam String username,
@@ -86,11 +74,6 @@ public class AccountController {
         }
     }
 
-    @Operation(summary = "获取用户信息")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "获取成功"),
-            @ApiResponse(responseCode = "400", description = "用户不存在")
-    })
     @GetMapping("/info")
     public Result getInfo(@Parameter(description = "用户名") @RequestParam String username) {
         Account account = accountService.findByUsername(username);
@@ -102,11 +85,6 @@ public class AccountController {
         return Result.success(account);
     }
 
-    @Operation(summary = "修改密码")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "修改成功"),
-            @ApiResponse(responseCode = "400", description = "原密码错误或用户不存在")
-    })
     @PostMapping("/changepassword")
     public Result changePassword(
             @Parameter(description = "用户名") @RequestParam String username,
@@ -127,11 +105,6 @@ public class AccountController {
         return Result.success();
     }
 
-    @Operation(summary = "修改用户名")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "修改成功"),
-            @ApiResponse(responseCode = "400", description = "新用户名已存在或用户不存在")
-    })
     @PostMapping("/updateUsername")
     public Result updateUsername(
             @Parameter(description = "旧用户名") @RequestParam String oldUsername,
@@ -158,10 +131,7 @@ public class AccountController {
         return Result.success();
     }
 
-    @Operation(summary = "用户登出")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "登出成功")
-    })
+
     @PostMapping("/logout")
     public Result logout(@Parameter(description = "认证token") @RequestHeader("Authorization") String token) {
         if (token != null && token.startsWith("Bearer ")) {

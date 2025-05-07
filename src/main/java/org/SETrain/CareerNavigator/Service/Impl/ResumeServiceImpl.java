@@ -1,15 +1,21 @@
 package org.SETrain.CareerNavigator.Service.Impl;
 
+import lombok.RequiredArgsConstructor;
+import org.SETrain.CareerNavigator.Entity.Resume;
 import org.SETrain.CareerNavigator.Mapper.ResumeMapper;
 import org.SETrain.CareerNavigator.Service.ResumeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ResumeServiceImpl implements ResumeService {
 
-    @Autowired
-    private ResumeMapper resumeMapper;
+    private final ResumeMapper resumeMapper;
+
+    @Override
+    public Resume getResumeByUsername(String username) {
+        return resumeMapper.getResumeByUsername(username);
+    }
 
     @Override
     public Integer getLatestResumeIdByUsername(String username) {

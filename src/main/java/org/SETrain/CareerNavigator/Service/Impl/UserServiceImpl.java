@@ -1,9 +1,12 @@
 package org.SETrain.CareerNavigator.Service.Impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.SETrain.CareerNavigator.Entity.User;
 import org.SETrain.CareerNavigator.Mapper.UserMapper;
 import org.SETrain.CareerNavigator.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +29,15 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> findAll() {
     return userMapper.findAll();
+  }
+
+  @Override
+  public PageInfo<User> findPage(int pageNum, int pageSize) {
+    PageHelper.startPage(pageNum, pageSize);
+    // 查询数据
+    List<User> users = userMapper.findAll();
+    // 返回分页结果
+    return new PageInfo<>(users);
   }
 
   @Override

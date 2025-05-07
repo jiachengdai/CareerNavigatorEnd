@@ -19,11 +19,6 @@ public class UserProfileController {
     @Autowired
     private UserProfileService userProfileService;
 
-    @Operation(summary = "获取用户画像数据")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "获取成功"),
-            @ApiResponse(responseCode = "400", description = "获取失败")
-    })
     @GetMapping("/{username}")
     public Map<String, Object> getUserProfile(@Parameter(description = "用户名") @PathVariable String username) {
         return userProfileService.getUserProfile(username);

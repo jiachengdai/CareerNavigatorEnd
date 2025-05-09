@@ -40,14 +40,26 @@ public class ResumeController {
         @ApiResponse(responseCode = "500", description = "AI服务异常或处理错误")
     })
     @PostMapping("/advanced-assess")
-    public Result assessResume(@RequestParam Integer resumeId) {
+    public Result assessResume(@RequestBody String  resumeContent) {
         try {
+            // 通过线程本地存储获取用户信息
+            Map<String, Object> claims = ThreadLocalUtil.get();
+            String username = (String) claims.get("username");
 
-            Resume resume=resumeService.getResumeById(resumeId);
+            // 创建新简历记录
+            Resume newResume = new Resume();
+            newResume.setUsername(username);
+            newResume.setContent(resumeContent);
+            newResume.setTitle("高级评估简历-" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+            newResume.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+            Resume savedResume = resumeService.createResume(newResume); // 持久化获取ID
+            Integer resumeId = savedResume.getId(); // 获取真实生成的简历ID
+
 
             // Step 3: Perform the AI assessment on the resume content
             String promptPre="你是一个专业HR，请从专业技能匹配度、项目经验、教育背景、格式规范等维度进行简历评估，返回JSON格式：{score: 0-100, analysis: string, suggestions: string[]}。下面是简历的内容：";
-            String jsonResult = chatClient.call(promptPre+resume.getContent()); // Or use savedResume.getContent()
+            String jsonResult = chatClient.call(promptPre+resumeContent); // Or use savedResume.getContent()
 
             // Step 4: Create the assessment record using the actual resumeId
             // The constructor for ResumeAssessmentRecord is (Integer resumeId, String assessmentResult, Date assessmentTime)

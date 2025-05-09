@@ -11,6 +11,7 @@ public class Resume {
     private String  analysis;
     private String advice;
     private String type;
+    private String content;  // Add this field
 
     @Override
     public String toString() {
@@ -101,5 +102,13 @@ public class Resume {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getContent() {  // Add this getter
+        return content;
+    }
+
+    public void setContent(String content) {  // Add this setter
+        this.content = content;
     }
 }

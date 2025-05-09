@@ -3,14 +3,11 @@ package org.SETrain.CareerNavigator.Controller;
 import org.SETrain.CareerNavigator.Entity.Account;
 import org.SETrain.CareerNavigator.Entity.Result;
 import org.SETrain.CareerNavigator.Service.AccountService;
-import org.SETrain.CareerNavigator.Service.UserService;
-import org.SETrain.CareerNavigator.Util.JwtUtil;
+ import org.SETrain.CareerNavigator.Util.JwtUtil;
 import org.SETrain.CareerNavigator.Util.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,8 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class AccountController {
     @Autowired
     private AccountService accountService;
-    @Autowired
-    private UserService userService;
+
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;

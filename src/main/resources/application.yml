@@ -14,12 +14,12 @@ spring:
     ai:
         openai:
 
-            base-url: https://api.moonshot.cn/
-            api-key: sk-aSkoBz84k3jXjcRmBDY5RHOeOYPSBI8gwW2pcx0d5Wq0kniV
+            base-url: https://openrouter.ai/api/
+            api-key: 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
 
             chat:
                 options:
-                    model: moonshot-v1-8k
+                    model: qwen/qwen3-30b-a3b:free
 
 
 mybatis:

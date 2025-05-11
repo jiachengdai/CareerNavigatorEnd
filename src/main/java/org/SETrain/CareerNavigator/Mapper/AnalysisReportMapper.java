@@ -9,8 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface AnalysisReportMapper {
-    @Insert("INSERT INTO analysis_report(  user_id, resume_id, report_content, generate_time) " +
-            "VALUES ( #{userId}, #{resumeId}, #{reportContent}, #{generateTime})")
+    @Insert("INSERT INTO resume_assessment_record(   resume_id, assessment_result, assessment_time) " +
+            "VALUES (   #{resumeId}, #{reportContent}, #{generateTime})")
     void insert(AnalysisReport report);
 
     @Select("SELECT * FROM analysis_report WHERE user_id = #{userId}")

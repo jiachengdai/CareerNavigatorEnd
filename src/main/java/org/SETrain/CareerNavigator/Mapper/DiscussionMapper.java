@@ -29,6 +29,6 @@ public interface DiscussionMapper {
     @Delete("DELETE FROM discussion WHERE id = #{id}")
     int deleteById(Integer id);
 
-    @Select("SELECT * FROM discussion WHERE job_id = #{jobId} ORDER BY create_time DESC")
+    @Select("SELECT * FROM discussion WHERE jobId = #{jobId} ORDER BY create_time DESC")
     List<Discussion> findByJobId(Integer jobId);
 }

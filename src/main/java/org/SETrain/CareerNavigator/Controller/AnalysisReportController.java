@@ -4,10 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.SETrain.CareerNavigator.Entity.AnalysisReport;
 import org.SETrain.CareerNavigator.Entity.Result;
 import org.SETrain.CareerNavigator.Service.AnalysisReportService;
+import org.SETrain.CareerNavigator.Util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/analysis-report")
@@ -18,7 +21,10 @@ public class AnalysisReportController {
 
     @PostMapping("/generate")
     @Operation(summary = "生成分析报告")
-    public Result generateReport(@RequestParam Integer resumeId, @RequestParam String userId) {
+    public Result generateReport(@RequestParam Integer resumeId ) {
+        Map<String, Object> claims = ThreadLocalUtil.get();
+        String userId = (String) claims.get("username");
+
         AnalysisReport report = analysisReportService.generateReport(resumeId, userId);
         return Result.success(report);
     }

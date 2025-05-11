@@ -15,8 +15,7 @@ spring:
         openai:
 
             base-url: https://openrouter.ai/api/
-            api-key: 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
-
+            api-key: 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
             chat:
                 options:
                     model: qwen/qwen3-30b-a3b:free
